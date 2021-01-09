@@ -3,24 +3,32 @@
 
 def all_houses(filename):
     """Return a set of all house names in the given file.
-
     For example:
       >>> unique_houses('cohort_data.txt')
       {"Dumbledore's Army", 'Gryffindor', ..., 'Slytherin'}
-
     Arguments:
       - filename (str): the path to a data file
-
     Return:
       - set[str]: a set of strings
     """
-
+    # sudo
+    # open the file
+    student_file = open(filename)
     houses = set()
-
-    # TODO: replace this with your code
-
+    # loop through the file
+    for line in student_file:
+      # create individual list items from parsing out data 
+      words = line.rstrip().split('|')
+      
+      house_names = words[2]
+      # add house names (index 2) to a set
+      if house_names not in houses:
+        houses.add(house_names)
+      
+    houses.remove('')
+    
+    # return set 
     return houses
-
 
 def students_by_cohort(filename, cohort='All'):
     """Return a list of students' full names by cohort.
