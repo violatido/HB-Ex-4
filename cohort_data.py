@@ -105,7 +105,7 @@ def all_names_by_house(filename):
       Return:
         - list[list]: a list of lists
       """
-# sudo
+    # sudo
     # open file
     student_file = open(filename)
     # lists of houses, ghosts, instructors
@@ -180,13 +180,15 @@ def all_data(filename):
     Return:
       - list[tuple]: a list of tuples
     """
-
     all_data = []
-
-    # TODO: replace this with your code
+    cohort_data = open(filename)
+    
+    for line in cohort_data:
+      
+      first, last, house, advisor, cohort_name = line.rstrip().split('|')
+      all_data.append((f'{first} {last}', f"{house}", f"{advisor}", f"{cohort_name}"))
 
     return all_data
-
 
 def get_cohort_for(filename, name):
     """Given someone's name, return the cohort they belong to.
@@ -209,7 +211,12 @@ def get_cohort_for(filename, name):
       - str: the person's cohort or None
     """
 
-    # TODO: replace this with your code
+
+    for full_name, _, _, cohort_name in all_data(filename):
+      if full_name == name:
+          return cohort_name
+
+# print(get_cohort_for("cohort_data.txt", "Hannah Abbot"))
 
 
 def find_duped_last_names(filename):
