@@ -78,34 +78,37 @@ def students_by_cohort(filename, cohort='All'):
 def all_names_by_house(filename):
     """Return a list that contains rosters for all houses, ghosts, instructors.
 
-    Rosters appear in this order:
-    - Dumbledore's Army
-    - Gryffindor
-    - Hufflepuff
-    - Ravenclaw
-    - Slytherin
-    - Ghosts
-    - Instructors
+      Rosters appear in this order:
+      - Dumbledore's Army
+      - Gryffindor
+      - Hufflepuff
+      - Ravenclaw
+      - Slytherin
+      - Ghosts
+      - Instructors
 
-    Each roster is a list of names sorted in alphabetical order.
+      Each roster is a list of names sorted in alphabetical order.
 
-    For example:
-      >>> rosters = hogwarts_by_house('cohort_data.txt')
-      >>> len(rosters)
-      7
+      For example:
+        >>> rosters = hogwarts_by_house('cohort_data.txt')
+        >>> len(rosters)
+        7
 
-      >>> rosters[0]
-      ['Alicia Spinnet', ..., 'Theodore Nott']
-      >>> rosters[-1]
-      ['Filius Flitwick', ..., 'Severus Snape']
+        >>> rosters[0]
+        ['Alicia Spinnet', ..., 'Theodore Nott']
+        >>> rosters[-1]
+        ['Filius Flitwick', ..., 'Severus Snape']
 
-    Arguments:
-      - filename (str): the path to a data file
+      Arguments:
+        - filename (str): the path to a data file
 
-    Return:
-      - list[list]: a list of lists
-    """
-
+      Return:
+        - list[list]: a list of lists
+      """
+# sudo
+    # open file
+    student_file = open(filename)
+    # lists of houses, ghosts, instructors
     dumbledores_army = []
     gryffindor = []
     hufflepuff = []
@@ -113,10 +116,50 @@ def all_names_by_house(filename):
     slytherin = []
     ghosts = []
     instructors = []
+    # loop through file by line
+    for line in student_file:
+    # parse each line
+      first, last, house, _, cohort = line.rstrip().split('|')
 
+    # if/elif to check third list item equals house name, assign to house list
+      # if line_lst[4] == 'G':
+      #   ghosts.append(f"{line_lst[0]} {line_lst[1]}")
+      #   ghosts.sort()
+      # elif line_lst[4] == 'I':
+      #   instructors.append(f"{line_lst[0]} {line_lst[1]}")
+      #   ghosts.sort()
+      if house == 'Dumbledore\'s Army':
+        # add first and last names to appropriate list and sort alphabetically
+        dumbledores_army.append(f"{first} {last}")
+        dumbledores_army.sort()
+      elif house == 'Gryffindor':
+        gryffindor.append(f"{first} {last}")
+        gryffindor.sort()
+      elif house == 'Hufflepuff':
+        hufflepuff.append(f"{first} {last}")
+        hufflepuff.sort()
+      elif house == 'Ravenclaw':
+        ravenclaw.append(f"{first} {last}")
+        ravenclaw.sort()
+      elif house == 'Slytherin':
+        slytherin.append(f"{first} {last}")
+        slytherin.sort()
+
+      else:
+        # if third list item == empty, check fifth element to check for ghost or instructor
+        if cohort== 'G':
+          ghosts.append(f"{first} {last}")
+          ghosts.sort()
+        else:
+          instructors.append(f"{first} {last}")
+          instructors.sort()
+
+    # return concatenation of all lists
+    roster = [dumbledores_army, gryffindor, hufflepuff, ravenclaw, slytherin, ghosts, instructors]
     # TODO: replace this with your code
 
-    return []
+    return roster
+
 
 
 def all_data(filename):
